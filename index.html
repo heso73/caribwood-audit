@@ -141,6 +141,8 @@
       padding: 14px 28px; border-radius: var(--radius);
       text-decoration: none;
       transition: background 0.2s, transform 0.15s;
+      border: none;
+      cursor: pointer;
     }
     .btn-primary:hover { background: #00cfe0; transform: translateY(-1px); }
     .btn-primary svg { width: 16px; height: 16px; }
@@ -369,6 +371,9 @@
       border-radius: var(--radius);
       text-decoration: none;
       transition: background 0.2s, color 0.2s;
+      background: transparent;
+      cursor: pointer;
+      width: 100%;
     }
     .btn-outline:hover { background: var(--ink); color: var(--white); }
     .btn-outline.featured {
@@ -376,33 +381,101 @@
     }
     .btn-outline.featured:hover { background: var(--ink); border-color: var(--ink); }
 
-    /* ── CONTACT ── */
+    /* ── CONTACT / FORMULAIRE ── */
     .contact-section {
       background: var(--ink);
       padding: 5rem 2rem;
+    }
+    .contact-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .contact-inner .section-label {
+      color: var(--cyan);
       text-align: center;
     }
-    .contact-inner { max-width: 560px; margin: 0 auto; }
-    .contact-inner .section-label { color: var(--cyan); text-align: center; }
     .contact-inner h2 {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(1.6rem, 3vw, 2.2rem);
-      color: var(--white); margin-bottom: 1rem;
+      color: var(--white);
+      margin-bottom: 1rem;
+      text-align: center;
     }
     .contact-inner p {
-      color: rgba(255,255,255,0.55); margin-bottom: 2.5rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 2.5rem;
       max-width: none;
+      text-align: center;
     }
-    .contact-email {
-      font-family: 'DM Mono', monospace;
-      font-size: 14px; color: var(--cyan);
-      text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px;
-      border-bottom: 1px solid rgba(0,183,199,0.3);
-      padding-bottom: 2px;
-      transition: border-color 0.2s;
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
     }
-    .contact-email:hover { border-color: var(--cyan); }
+
+    .contact-form label {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.02em;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+
+    .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .contact-form .btn-primary {
+      justify-content: center;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+      border: 1px solid rgba(0,183,199,0.3);
+      border-radius: var(--radius);
+      background: rgba(0,183,199,0.06);
+    }
+
+    .form-success p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .form-success small {
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -434,7 +507,7 @@
 <!-- NAV -->
 <nav>
   <a class="nav-brand" href="https://caribbeanmetadata.org">Caribbean Metadata Standard</a>
-  <a class="nav-cta" href="mailto:contact@caribbeanmetadata.org">Demander un audit</a>
+  <a class="nav-cta" href="#contact">Demander un audit</a>
 </nav>
 
 <!-- HERO -->
@@ -454,7 +527,7 @@
       </div>
     </div>
 
-    <a href="mailto:contact@caribbeanmetadata.org?subject=Demande%20d%27audit%20IVA&body=Bonjour%2C%0A%0AJe%20souhaite%20recevoir%20un%20audit%20de%20visibilit%C3%A9%20pour%20mon%20h%C3%A9bergement%20%2F%20mon%20contenu.%0A%0ANom%20de%20l%27%C3%A9tablissement%20%3A%0AURL%20Airbnb%20%2F%20Booking%20%2F%20Spotify%20%3A%0A%0AMerci." class="btn-primary">
+    <a href="#contact" class="btn-primary">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       Demander mon audit gratuit
     </a>
@@ -594,7 +667,7 @@
           <li>Comparaison corpus caribéen</li>
           <li>Plan d'action prioritaire</li>
         </ul>
-        <a href="mailto:contact@caribbeanmetadata.org?subject=Demande%20Audit%20IVA%2089%E2%82%AC" class="btn-outline">Demander l'audit</a>
+        <a href="#contact" class="btn-outline">Demander l'audit</a>
       </div>
 
       <div class="pricing-card featured">
@@ -608,7 +681,7 @@
           <li>Caption Instagram prête à publier</li>
           <li>Livraison en 72h</li>
         </ul>
-        <a href="mailto:contact@caribbeanmetadata.org?subject=Demande%20Audit%20%2B%20Contenu%20179%E2%82%AC" class="btn-outline featured">Démarrer maintenant</a>
+        <a href="#contact" class="btn-outline featured">Démarrer maintenant</a>
       </div>
 
       <div class="pricing-card">
@@ -622,22 +695,48 @@
           <li>Rapport de performance</li>
           <li>Accompagnement personnalisé</li>
         </ul>
-        <a href="mailto:contact@caribbeanmetadata.org?subject=Pack%20Saison%20-%20Demande%20de%20devis" class="btn-outline">Nous contacter</a>
+        <a href="#contact" class="btn-outline">Nous contacter</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact-section">
+<!-- CONTACT / FORMULAIRE -->
+<section class="contact-section" id="contact">
   <div class="contact-inner">
     <div class="section-label">Contact</div>
     <h2>Première réponse sous 24h</h2>
     <p>Envoyez-nous l'URL de votre annonce Airbnb, Booking ou votre profil Spotify. Nous vous répondons avec une première analyse gratuite.</p>
-    <a href="mailto:contact@caribbeanmetadata.org?subject=Demande%20d%27audit%20IVA&body=Bonjour%2C%0A%0AJe%20souhaite%20recevoir%20un%20audit%20de%20visibilit%C3%A9%20pour%20%3A%0A%0AURL%20de%20mon%20annonce%20%3A%0A%0AMerci." class="contact-email">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
-      contact@caribbeanmetadata.org
-    </a>
+
+    <!-- Formulaire -->
+    <form id="contactForm" class="contact-form">
+      <div>
+        <label for="formName">Votre nom</label>
+        <input type="text" id="formName" placeholder="Jean Dupont" required />
+      </div>
+      <div>
+        <label for="formEmail">Votre email</label>
+        <input type="email" id="formEmail" placeholder="jean@example.com" required />
+      </div>
+      <div>
+        <label for="formUrl">URL de votre annonce (Airbnb, Booking, Spotify…)</label>
+        <input type="url" id="formUrl" placeholder="https://www.airbnb.fr/rooms/123456" required />
+      </div>
+      <div>
+        <label for="formMessage">Message (optionnel)</label>
+        <textarea id="formMessage" placeholder="Dites-nous en plus sur vos besoins…"></textarea>
+      </div>
+      <button type="submit" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Envoyer ma demande
+      </button>
+    </form>
+
+    <!-- Message de succès -->
+    <div id="formSuccess" class="form-success">
+      <p>✅ Votre demande a bien été envoyée !</p>
+      <small>Nous vous répondrons sous 24h ouvrées.</small>
+    </div>
   </div>
 </section>
 
@@ -648,6 +747,45 @@
     Standard ouvert pour le contenu caribéen
   </p>
 </footer>
+
+<script>
+  (function() {
+    const form = document.getElementById('contactForm');
+    const successDiv = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Récupération des valeurs
+      const name = document.getElementById('formName').value.trim();
+      const email = document.getElementById('formEmail').value.trim();
+      const url = document.getElementById('formUrl').value.trim();
+      const message = document.getElementById('formMessage').value.trim();
+
+      // Validation simple
+      if (!name || !email || !url) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+
+      // Construction du corps de l'email
+      const subject = encodeURIComponent('Demande d\'audit IVA - ' + name);
+      const body = encodeURIComponent(
+        'Nom : ' + name + '\n' +
+        'Email : ' + email + '\n' +
+        'URL : ' + url + '\n' +
+        'Message : ' + (message || 'Aucun message supplémentaire.')
+      );
+
+      // Ouverture du mailto (on laisse faire le navigateur)
+      window.location.href = 'mailto:contact@caribbeanmetadata.org?subject=' + subject + '&body=' + body;
+
+      // Masquer le formulaire, afficher le message de succès
+      form.style.display = 'none';
+      successDiv.style.display = 'block';
+    });
+  })();
+</script>
 
 </body>
 </html>
