@@ -756,33 +756,30 @@
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Récupération des valeurs
       const name = document.getElementById('formName').value.trim();
       const email = document.getElementById('formEmail').value.trim();
       const url = document.getElementById('formUrl').value.trim();
       const message = document.getElementById('formMessage').value.trim();
 
-      // Validation simple
       if (!name || !email || !url) {
         alert('Veuillez remplir tous les champs obligatoires.');
         return;
       }
 
-      // Construction du corps de l'email
-      const subject = encodeURIComponent('Demande d\'audit IVA - ' + name);
-      const body = encodeURIComponent(
+      const text = encodeURIComponent(
+        'Bonjour, je souhaite demander un audit IVA.\n\n' +
         'Nom : ' + name + '\n' +
         'Email : ' + email + '\n' +
-        'URL : ' + url + '\n' +
-        'Message : ' + (message || 'Aucun message supplémentaire.')
+        'Page à auditer : ' + url + '\n' +
+        (message ? 'Message : ' + message : '')
       );
 
-      // Ouverture du mailto (on laisse faire le navigateur)
-      window.location.href = 'mailto:contact@caribbeanmetadata.org?subject=' + subject + '&body=' + body;
-
-      // Masquer le formulaire, afficher le message de succès
       form.style.display = 'none';
       successDiv.style.display = 'block';
+
+      setTimeout(function() {
+        window.open('https://wa.me/590690154186?text=' + text, '_blank');
+      }, 800);
     });
   })();
 </script>
