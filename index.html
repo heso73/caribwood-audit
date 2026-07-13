@@ -733,10 +733,22 @@
     </form>
 
     <!-- Message de succès -->
-    <div id="formSuccess" class="form-success">
-      <p>✅ Votre demande a bien été envoyée !</p>
-      <small>Nous vous répondrons sous 24h ouvrées.</small>
+    <div id="formSuccess" class="form-success" style="display:none;">
+      <p>✅ WhatsApp s'est ouvert dans un nouvel onglet.</p>
+      <small>Cliquez sur "Envoyer" dans WhatsApp pour finaliser votre demande.</small>
     </div>
+
+    <!-- Message d'erreur si le popup est bloqué -->
+    <div id="formError" class="form-error" style="display:none;">
+      <p>⚠️ Impossible d'ouvrir WhatsApp automatiquement (bloqueur de pop-up ou WhatsApp non installé).</p>
+      <small>Contactez-nous directement à <a href="mailto:contact@caribbeanmetadata.org">contact@caribbeanmetadata.org</a> ou au <a id="waFallbackLink" href="#" target="_blank">+590 690 15 41 86 sur WhatsApp</a>.</small>
+    </div>
+
+    <!-- Secours permanent, toujours visible -->
+    <p class="contact-fallback" style="margin-top:1.5rem;font-size:0.9rem;">
+      Le formulaire ne fonctionne pas ? Écrivez-nous directement à
+      <a href="mailto:contact@caribbeanmetadata.org">contact@caribbeanmetadata.org</a>.
+    </p>
   </div>
 </section>
 
@@ -752,6 +764,8 @@
   (function() {
     const form = document.getElementById('contactForm');
     const successDiv = document.getElementById('formSuccess');
+    const errorDiv = document.getElementById('formError');
+    const waFallbackLink = document.getElementById('waFallbackLink');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -773,13 +787,26 @@
         'Page à auditer : ' + url + '\n' +
         (message ? 'Message : ' + message : '')
       );
+      const waUrl = 'https://wa.me/590690154186?text=' + text;
 
-      form.style.display = 'none';
-      successDiv.style.display = 'block';
+      // Ouverture IMMÉDIATE (synchrone avec le clic) — un setTimeout aurait
+      // fait perdre le contexte "geste utilisateur" et fait bloquer le popup
+      // par le navigateur dans certains cas.
+      const waWindow = window.open(waUrl, '_blank');
 
-      setTimeout(function() {
-        window.open('https://wa.me/590690154186?text=' + text, '_blank');
-      }, 800);
+      errorDiv.style.display = 'none';
+      successDiv.style.display = 'none';
+      waFallbackLink.href = waUrl;
+
+      // On ne peut pas savoir si l'utilisateur a cliqué "Envoyer" dans WhatsApp,
+      // mais on peut au moins vérifier que la fenêtre s'est bien ouverte.
+      if (waWindow) {
+        form.style.display = 'none';
+        successDiv.style.display = 'block';
+      } else {
+        // Popup bloqué ou WhatsApp non disponible : vraie erreur, vrai fallback.
+        errorDiv.style.display = 'block';
+      }
     });
   })();
 </script>
